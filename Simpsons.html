@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simpsons Prompt</title>
+<script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
+
+<style>
+  /* Sayfa Düzeni */
+  body {
+    background-color: #121212;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Slider Çerçevesi */
+  .slider-box {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    border: 1px solid #333;
+  }
+  
+  img-comparison-slider {
+    width: 100%;
+    outline: none;
+    cursor: col-resize;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Kopyala Butonu Tasarımı */
+  .copy-btn {
+    background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%); /* Simpsons Sarısı Tonları */
+    color: #000;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .copy-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 5px rgba(255, 215, 0, 0.2);
+  }
+
+  /* Başarı Mesajı */
+  #msg {
+    color: #4ade80;
+    text-align: center;
+    display: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="slider-box">
+    <img-comparison-slider>
+      <img slot="first" src="https://i.hizliresim.com/a7nicb0.jpg" />
+      
+      <img slot="second" src="https://i.hizliresim.com/kk7wysr.jpg" />
+    </img-comparison-slider>
+  </div>
+
+  <textarea id="myPrompt" style="display:none;">
+{
+  "TASK_DEFINITION": {
+    "objective": "Transform the person in the reference photo into a Simpsons-style 2D cartoon character while keeping the same identity, outfit, and pose.",
+    "output_type": "single image"
+  },
+  "IDENTITY_PRESERVATION_RULES": {
+    "priority": "CRITICAL",
+    "instruction": "Keep the person recognizable and keep clothing consistent with the reference photo.",
+    "constraints": [
+      "DO NOT change the person's identity or key facial features.",
+      "DO NOT change hairstyle type or overall hair shape.",
+      "DO NOT change outfit type, colors, or patterns.",
+      "DO NOT change pose, camera angle, or composition.",
+      "DO NOT crop, pad, or change the aspect ratio."
+    ]
+  },
+  "STYLE_GUIDE": {
+    "style_name": "The Simpsons (2D cel animation)",
+    "visual_traits": [
+      "clean black outlines",
+      "flat cel shading",
+      "simple shapes, minimal texture",
+      "warm bright color palette",
+      "cartoon facial proportions (large round eyes style) while keeping the person recognizable"
+    ],
+    "strictly_avoid": [
+      "photorealism",
+      "3D rendering",
+      "anime style",
+      "cinematic lighting",
+      "heavy blur or depth of field",
+      "gritty textures"
+    ]
+  },
+  "BACKGROUND_POLICY": {
+    "instruction": "Cartoonize the background to match a Springfield-like 2D look while keeping the scene layout similar to the original photo.",
+    "constraints": [
+      "No text or signs with readable words",
+      "No logos or watermarks",
+      "Keep background simple and consistent with 2D animation"
+    ]
+  },
+  "OUTPUT_SPEC": {
+    "quality": "clean 2D cartoon frame",
+    "aspect_ratio": "MUST match the reference image aspect ratio",
+    "ui_policy": "NO UI elements, NO captions, NO overlays"
+  },
+  "NEGATIVE_PROMPT": [
+    "photorealistic",
+    "3d",
+    "render",
+    "anime",
+    "cinematic",
+    "bokeh",
+    "depth of field",
+    "blur",
+    "text",
+    "logo",
+    "watermark",
+    "ui",
+    "hud",
+    "different person",
+    "changed outfit",
+    "distorted face",
+    "extra fingers"
+  ]
+}
+  </textarea>
+
+  <button class="copy-btn" onclick="kopyala()">PROMPTU KOPYALA 📋</button>
+  <div id="msg">Kopyalandı! ✅</div>
+
+</div>
+
+<script>
+function kopyala() {
+    var text = document.getElementById("myPrompt").value;
+    navigator.clipboard.writeText(text).then(() => {
+        var msg = document.getElementById("msg");
+        msg.style.display = "block";
+        setTimeout(() => { msg.style.display = "none"; }, 2000);
+    });
+}
+</script>
+
+</body>
+</html>
