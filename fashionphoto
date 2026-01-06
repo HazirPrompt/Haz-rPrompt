@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simpsons Prompt</title>
+<script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
+
+<style>
+  /* Sayfa Düzeni */
+  body {
+    background-color: #121212;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Slider Çerçevesi */
+    .slider-box {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    border: 1px solid #333;
+    aspect-ratio: 2 / 3;  /* <-- YENİ EKLENEN SATIR BU */
+  }
+
+  }
+  
+  img-comparison-slider {
+    width: 100%;
+    outline: none;
+    cursor: col-resize;
+  }
+  
+    img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* object-fit: cover; SATIRINI SİLDİM */
+  }
+
+
+  /* Kopyala Butonu Tasarımı */
+  .copy-btn {
+    background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%); /* Simpsons Sarısı Tonları */
+    color: #000;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .copy-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 5px rgba(255, 215, 0, 0.2);
+  }
+
+  /* Başarı Mesajı */
+  #msg {
+    color: #4ade80;
+    text-align: center;
+    display: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="slider-box">
+    <img-comparison-slider>
+      <img slot="first" src="https://i.hizliresim.com/a7nicb0.jpeg" />
+      
+      <img slot="second" src="https://i.hizliresim.com/av7edrc.png" />
+    </img-comparison-slider>
+  </div>
+
+  <textarea id="myPrompt" style="display:none;">
+{
+  "TASK": {
+    "objective": "Transform the person in the reference photo into a high-end editorial fashion photograph while preserving their exact identity.",
+    "scope": "Must work with selfies, full body photos, and natural or posed shots.",
+    "output": "single realistic photo"
+  },
+  "IDENTITY_LOCK": {
+    "priority": "CRITICAL",
+    "rules": [
+      "The face must remain exactly the same person.",
+      "Do not beautify, stylize, or change facial features.",
+      "Preserve natural face proportions, expression, and asymmetry.",
+      "The result must be instantly recognizable as the same individual."
+    ]
+  },
+  "POSE_AND_BODY_HANDLING": {
+    "instruction": "Respect the original pose and body proportions from the reference photo.",
+    "constraints": [
+      "If selfie: keep natural phone-camera perspective.",
+      "If full body: preserve body shape, height, and stance.",
+      "Do not introduce exaggerated fashion poses."
+    ]
+  },
+  "CAMERA_REALISM": {
+    "look": "Professional DSLR or high-end smartphone camera",
+    "traits": [
+      "realistic lens perspective",
+      "natural depth and focus",
+      "no artificial cinematic blur",
+      "true-to-life skin texture"
+    ]
+  },
+  "STYLE_GUIDE": {
+    "aesthetic": "Luxury fashion editorial photography",
+    "lighting": [
+      "soft, controlled professional lighting",
+      "face-focused light with natural falloff",
+      "no dramatic or stylized lighting effects"
+    ],
+    "color_grading": "neutral, clean, magazine-ready tones",
+    "finish": "polished but realistic, not over-edited"
+  },
+  "WARDROBE_POLICY": {
+    "instruction": "Keep the original clothing type and style.",
+    "allowed": [
+      "minor refinement for a cleaner editorial look"
+    ],
+    "forbidden": [
+      "outfit replacement",
+      "costumes",
+      "brand logos"
+    ]
+  },
+  "BACKGROUND": {
+    "instruction": "Use a clean, realistic background appropriate for an editorial photo.",
+    "constraints": [
+      "studio or simple real-world environment",
+      "no distractions",
+      "no text or signage"
+    ]
+  },
+  "STRICTLY_AVOID": [
+    "AI-art look",
+    "beautification filters",
+    "face reshaping",
+    "cinematic color grading",
+    "fantasy aesthetics",
+    "logos",
+    "text",
+    "watermarks"
+  ],
+  "OUTPUT_SPEC": {
+    "realism_level": "photorealistic, camera-captured look",
+    "aspect_ratio": "must match the original image",
+    "quality": "professional editorial photography standard"
+  }
+}
+  </textarea>
+
+  <button class="copy-btn" onclick="kopyala()">PROMPTU KOPYALA 📋</button>
+  <div id="msg">Kopyalandı! ✅</div>
+
+</div>
+
+<script>
+function kopyala() {
+    var text = document.getElementById("myPrompt").value;
+    navigator.clipboard.writeText(text).then(() => {
+        var msg = document.getElementById("msg");
+        msg.style.display = "block";
+        setTimeout(() => { msg.style.display = "none"; }, 2000);
+    });
+}
+</script>
+
+</body>
+</html>
